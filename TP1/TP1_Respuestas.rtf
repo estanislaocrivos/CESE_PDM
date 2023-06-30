@@ -1,0 +1,54 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 SFMono-Medium;}
+{\colortbl;\red255\green255\blue255;\red25\green60\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c12594\c35385\c100000;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww13700\viewh16580\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs36 \cf0 1er Bimestre CESE 2023\
+\
+Programaci\'f3n de Microprocesadores\
+\
+Respuestas al TP1:\
+\
+- Al utilizar un array de LEDs en el programa se facilita para cambiar el recorrido de la secuencia, invirtiendo simplemente la forma de recorrer el arreglo con la estructura for(). Facilita el problema al querer agregar o sacar un led ya que se puede agregar/sacar un lugar mas al arreglo y utilizar una variable SIZE para recorrer todos los for() (puede utilizarse un #DEFINE).\
+\
+- Dado que el pulsador es leido solo en una linea dentro del while() puede ser que si se pulsa el boton en un momento en el que el programa no este pasando por esa instancia se pierde la pulsacion. Con respecto a los rebotes que podrian ocurrir al presionar el pulsador, existen diversas tecnicas anti-rebote, tanto por software como por hardware. \
+\
+Por HW: Si el switch esl tipo pull-down (su estado normal es BAJO y al presionar pone en ALTO la salida) agregando un capacitor peque\'f1o en paralelo con la resistencia a tierra este se carga rapidamente, manteniendo un valor de tension cuasi-constante a la salida del mismo a pesar de que existan sucesivos rebotes en el pulsador. Otra opcion es utilizar un flip-flop que mantenga su estado una vez que sucede el primer contacto. \
+\
+Por SW: Una forma es utilizar un registro de 8 bits que tome el valor de 1 o 0 en cada posicion segun cada rebote del switch desde el primer rebote (va corriendo los bits en cada rebote). Cuando todo el registro se encuentre en 1 significa que entonces los rebotes del switch finalizaron y la salida se encuentra en un estado constante (ver {\field{\*\fldinst{HYPERLINK "https://www.e-tinkers.com/2021/05/the-simplest-button-debounce-solution/"}}{\fldrslt link}}). El programa se presenta a continuacion: \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 bool debounce() \{\
+  static uint16_t state = 0;\
+  state = (state<<1) | digitalRead(btn) | 0xfe00;\
+  return (state == 0xff00);\
+\}\
+\
+#define btn 2  //assuming we use D2 on Arduino\
+\
+void setup() \{\
+  pinMode(btn, INPUT_PULLUP);\
+  pinMode(LED_BUILTIN, OUTPUT);\
+\}\
+\
+void loop() \{\
+  if (debounce()) \{\
+    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));\
+  \}\
+\}\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+- Realizando una lectura luego de cada LED logramos que haya mayor \'93refresh rate\'94 en la lectura del pulsador, aunque tal vez esto complejize un poco el programa. Leyendo una vez el boton luego de cada secuencia de leds puede suceder que se pierdan pulsaciones del boton.\
+\
+- Segun donde se realice la lectura del pulsador, se puede o no cambiar la secuencia de LEDs en cualquier instante. Por lo general se realiza la lectura en un unico punto dentro del programa por lo que no es posible. \
+\
+- Si el tiempo de encendido de la secuencia fuese bastante menor (50ms por ejemplo) no cambiaria mucho al funcionamiento del programa donde se vaya a colocar la lectura del pulsador, en cambio si el tiempo de encendido es cercano al segundo, entonces si habra mucha diferencia en la interaccion con el usuario, ya que habria que esperar que el programa termine de ejecutarse (1 segundo/led resultaria en 3 segundos de ejecucion) para poder presionar el boton y que esto pueda ser detectado por el programa.\
+\
+\
+\
+\
+\
+\
+}
