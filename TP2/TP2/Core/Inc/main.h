@@ -65,9 +65,10 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
 
-void delayInit( delay_t * delay, tick_t duration );
-bool_t delayRead( delay_t * delay );
-void delayWrite( delay_t * delay, tick_t duration );
+void delayInit(delay_t * delay, tick_t duration);
+bool_t delayRead(delay_t * delay);
+void delayWrite(delay_t * delay, tick_t duration);
+void errorHandler(void);
 
 /* USER CODE END EFP */
 

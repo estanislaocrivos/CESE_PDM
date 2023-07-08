@@ -38,10 +38,15 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
+// Duraciones de encendido de cada LED en ms
 #define LED1_DUR 50
 #define LED2_DUR 100
 #define LED3_DUR 200
-#define LED4_DUR 400
+
+// Defino los PINes donde se conectan los LED 1 2 3
+#define PIN_1 GPIO_PIN_4
+#define PIN_2 GPIO_PIN_5
+#define PIN_3 GPIO_PIN_3
 
 /* USER CODE END PD */
 
@@ -68,13 +73,9 @@ static void MX_USART2_UART_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-
-/*
- * Funcion para inicializar el contador de duracion "duration"
- * */
+// Funcion para inicializar el contador de duracion "duration".
 void delayInit( delay_t * delay, tick_t duration )
 {
-
 	assert(delay != NULL);
 	assert(duration > 0);
 
@@ -82,20 +83,22 @@ void delayInit( delay_t * delay, tick_t duration )
 	delay->running = false;
 }
 
-/*
- * Funcion para leer el estado del contador. Si llego al objetivo, finalizarlo y devolver true. Si no esta corriendo, iniciarlo en true.
- */
+// Funcion para leer el estado del contador:
+// Si llego al objetivo, finalizarlo y devolver true.
+// Si no se encuentra inicializado, iniciarlo y devolver false.
 bool_t delayRead( delay_t * delay )
 {
 	assert(delay != NULL);
 
 	if(delay->running == false)
 	{
+		// Inicia el contador
 		delay->running = true;
 		delay->startTime = HAL_GetTick();
 	}
 	else
 	{
+		// Si ya se cumplio el tiempo, anula el contador
 		tick_t actual_time = HAL_GetTick();
 		if (actual_time - delay->startTime >= delay->duration)
 		{
@@ -106,11 +109,10 @@ bool_t delayRead( delay_t * delay )
 	return false;
 }
 
-/*
- * Funcion para escribir una nueva duracion del contador.
- */
+// Funcion para escribir una nueva duracion del contador.
 void delayWrite( delay_t * delay, tick_t duration )
 {
+	assert(delay != NULL);
 	assert(duration > 0);
 	delay->duration = duration;
 }
@@ -131,7 +133,6 @@ int main(void)
 	 delay_t LED1_Delay;
 	 delay_t LED2_Delay;
 	 delay_t LED3_Delay;
-	 delay_t LED4_Delay;
 
 	 /*
 	  * Defino 4 duraciones para cada LED
@@ -139,7 +140,6 @@ int main(void)
 	 tick_t LED1_Duration = LED1_DUR;
 	 tick_t LED2_Duration = LED2_DUR;
 	 tick_t LED3_Duration = LED3_DUR;
-	 tick_t LED4_Duration = LED4_DUR;
 
   /* USER CODE END 1 */
 
@@ -170,7 +170,6 @@ int main(void)
     delayInit(&LED1_Delay, LED1_Duration);
     delayInit(&LED2_Delay, LED2_Duration);
     delayInit(&LED3_Delay, LED3_Duration);
-    delayInit(&LED4_Delay, LED4_Duration);
 
   /* USER CODE END 2 */
 
@@ -184,22 +183,17 @@ int main(void)
 
 	  if(delayRead(&LED1_Delay) == true)
 	  {
-		  HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_4);
+		  HAL_GPIO_TogglePin(GPIOB, PIN_1);
 	  }
 
 	  if(delayRead(&LED2_Delay) == true)
 	  {
-		  HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_5);
+		  HAL_GPIO_TogglePin(GPIOB, PIN_2);
 	  }
 
 	  if(delayRead(&LED3_Delay) == true)
 	  {
-		  HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3);
-	  }
-
-	  if(delayRead(&LED4_Delay) == true)
-	  {
-		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_10);
+		  HAL_GPIO_TogglePin(GPIOB, PIN_3);
 	  }
 
     /* USER CODE END WHILE */
