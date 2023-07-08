@@ -1,0 +1,1 @@
+Dado que mi placa F401RE tiene 1 solo LED, conecte 3 LEDs de forma externa en los pines del microcontrolador PB4 PB5 y PB3, a los cuales llame PIN_1  PIN_2 y PIN_3 respectivamente utilizando directivas #define, utilizadas al momento de encender y apagar los LED utilizando las funciones de la HAL, como  HAL_GPIO_TogglePin().

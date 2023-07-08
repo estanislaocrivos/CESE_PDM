@@ -1,0 +1,19 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 SFMono-Medium;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0\cname textColor;}
+{\info
+{\author Estanislao Crivos Gandini}}\paperw11900\paperh16840\margl1440\margr1440\vieww21380\viewh12600\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs36 \cf2 1er Bimestre CESE 2023\
+\
+Programaci\'f3n de Microprocesadores\
+\
+Respuestas al TP3:\
+\
+- Dado que se requiere que existan 200ms entre el encendido y apagado de cada LED, se utilizo solo una estructura delay, por lo tanto en este programa, tal cual esta ahora, no es posible controlar los tiempos de encendido de cada LED por separado. Para salvar este problema se podrian incluir las funciones implementadas delayWrite() antes del encendido de cada LED con el retardo que se requiera para cada LED 1 2 3. Como parametro de esta funcion podrian incluirse variables o constantes #define definidas al principio del programa para que no queden hardcoded.\
+\
+- Para que el programa compile se debieron agregar las bibliotecas stdbool.h, stdint.h (en el .h) y stm32f4xx_hal.h, API_delay.h y stdbool.h (en el .c). Basicamente se debieron incluir en los archivos correspondientes a la API todas aquellas bibliotecas que son necesarias para utilizar las variables y funciones que se llaman dentro del .h y .c. Luego, en el programa main.c es necesario llamar a esta biblioteca.\
+\
+- Para el control de los parametros pasados a cada funcion se utilizo la funcion assert() tal cual en el TP2.}
