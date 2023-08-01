@@ -1,6 +1,6 @@
 /*
  * API_uart.c
- *
+ * API para la inicializacion y el uso de la UART
  *  Created on: Jul 27, 2023
  *      Author: estanislaocrivosgandini
  */
@@ -32,37 +32,38 @@ bool uartInit(void)
 }
 
 /*
- * Funcion para transmitir una cadena de char por la UART. Pasar el nombre de la cadena como parametro
+ * Funcion para transmitir una cadena de char por la UART. Pasar el nombre de la cadena como parametro.
  */
 
 void uartSendString(uint8_t * pstring)
 {
-    int i = 0;
+  int i = 0;
 
-    while (*(pstring + i) != '\0')
-    {
-        HAL_UART_Transmit(&UartHandle, &pstring[i], 1, 0xFFFF);
-        i++;
-    }
+  while (*(pstring + i) != '\0')
+  {
+      HAL_UART_Transmit(&UartHandle, &pstring[i], 1, 0xFFFF);
+      i++;
+  }
 }
 
 
 /*
- * Funcion para transmitir una cadena de char por la UART. Pasar el nombre de la cadena como parametro y el nro. de char como segundo parametro
+ * Funcion para transmitir una cadena de char por la UART. Pasar el nombre de la cadena como parametro y el nro. de char como segundo parametro.
  */
 
 void uartSendStringSize(uint8_t * pstring, uint16_t size)
 {
-    int i = 0;
+  int i = 0;
 
-    while (*(pstring + i) != '\0')
-    {
-        HAL_UART_Transmit(&UartHandle, &pstring[i], size, 0xFFFF);
-        i++;
-    }}
+  while (*(pstring + i) != '\0')
+  {
+      HAL_UART_Transmit(&UartHandle, &pstring[i], size, 0xFFFF);
+      i++;
+  }
+}
 
 /*
- * Funcion para recibir una cadena de char por la UART. Pasar el nombre de la cadena vacia como parametro y el tamano en char esperado
+ * Funcion para recibir una cadena de char por la UART. Pasar el nombre de la cadena vacia como parametro y el tamano en char esperado.
  */
 
 void uartReceiveStringSize(uint8_t * pstring, uint16_t size)

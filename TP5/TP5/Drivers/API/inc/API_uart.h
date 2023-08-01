@@ -1,6 +1,6 @@
 /*
  * API_uart.h
- *
+ * API para la inicializacion y el uso de la UART
  *  Created on: Jul 27, 2023
  *      Author: estanislaocrivosgandini
  */

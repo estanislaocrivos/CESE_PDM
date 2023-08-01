@@ -1,4 +1,5 @@
 /* USER CODE BEGIN Header */
+
 /**
   ******************************************************************************
   * @file           : main.c
@@ -15,9 +16,10 @@
   *
   ******************************************************************************
   */
+
 /* USER CODE END Header */
 
-/* *********************************************** */
+/* ************************************************************************** */
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -29,25 +31,28 @@
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 
+/* ************************************************************************** */
+
 int main(void)
 {
+  // Inicializo modulos
   HAL_Init();
-
   SystemClock_Config();
   MX_GPIO_Init();
-
   uartInit();
 
+  // String a enviar por UART
   char string[] = "HOLA MUNDO!";
 
   while (1)
   {
-	uartSendString(string);
-	HAL_Delay(1000);
+    // Envio string por UART
+  	uartSendString(string);
+  	HAL_Delay(1000);
   }
 }
 
-/* *********************************************** */
+/* ************************************************************************** */
 
 /**
   * @brief System Clock Configuration
