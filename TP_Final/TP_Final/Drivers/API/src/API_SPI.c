@@ -5,7 +5,7 @@
  *      Author: estanislaocrivosgandini
  */
 
-
+#include <stdint.h>
 #include "API_SPI.h"
 #include "stm32f4xx.h"
 
@@ -28,12 +28,12 @@ void SPI_Init(void)
   hspi1.Init.CRCPolynomial = 10;
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
-    Error_Handler();
+//    Error_Handler();
   }
 }
 
 void SPI_Receive(uint8_t * buffer, uint16_t bytes)
 {
-  HAL_SPI_Receive(&hspi1, buffer, bytes, 100)
+  HAL_SPI_Receive(&hspi1, buffer, bytes, 100);
 }
 

@@ -6,6 +6,7 @@
  */
 
 #include "API_I2C.h"
+#include <stdint.h>
 #include "stm32f4xx.h"
 
 I2C_HandleTypeDef hi2c1;
@@ -23,12 +24,12 @@ void I2C_Init(void)
   hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
   if (HAL_I2C_Init(&hi2c1) != HAL_OK)
   {
-    Error_Handler();
   }
 }
 
-void I2C_Send_Cmd(uint8_t device_address, uint8_t buffer, uint8_t bytes)
+void I2C_Send_Cmd(uint8_t device_address, uint8_t * buffer, uint8_t bytes)
 {
     HAL_I2C_Master_Transmit(&hi2c1, device_address, buffer, bytes, 100);
+    return;
 }
     	
