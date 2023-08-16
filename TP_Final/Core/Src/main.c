@@ -69,6 +69,9 @@ int main(void)
 	LCD_Init ();		// Init. LCD
 	HAL_TIM_Base_Start_IT(&htim11);
 
+  /* Initializes Finite States Machine */
+  MEF_Init();
+
 	while (1)
 	{
 		/* Update Finite State Machine */

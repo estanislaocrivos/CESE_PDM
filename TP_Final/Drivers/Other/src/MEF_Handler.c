@@ -54,6 +54,8 @@ void MEF_Update(Person *People)
 			break;
 		
 		case AUTHENTICATE:
+
+			/* Calls authentication function */
 			Auth_Status = MEF_Authenticate(Card_ID, People, &ID_Index);
 
 			/* If the ID has been already registered, end shift... */

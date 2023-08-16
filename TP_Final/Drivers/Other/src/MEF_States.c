@@ -54,7 +54,8 @@ uint8_t MEF_Idle(uint8_t *Card_ID)
   *
   * This function is executed when a card is present in front of the reader. It
   * authenticates its ID and checks is the ID exists in the database, in which case
-  * it checks if it has already been registered or if it is not registered yet.
+  * it checks if it has already been registered or if it is not registered yet. 
+  * If the ID exists, it writes its index inside the array in the variable ID_Index.
   *
   * @param uint8_t * Card_ID, Person *People It takes the card ID to authenticate and a pointer to the
   * database structure array.
